@@ -3,18 +3,21 @@
    <body>
     https://makitweb.com/fetch-records-from-mysql-with-jquery-ajax-laravel/<br>
     https://makitweb.com/auto-populate-dropdown-with-jquery-ajax-in-laravel-8/ <br>
+
+    <hr><h1>Only Ajax Section</h1>
      <input type='text' id='search' name='search' placeholder='Enter userid 1-27'>
      <input type='button' value='Search' id='but_search'>
      <br/>
-     <select id='fetchallByPid' name='pid'>
-        <option value="0">Select</option>
-        <option value="1">ABC</option>
-        <option value="2">DFGH</option>
-        <option value="3">FFFFF</option>
-
-     </select>
+   
      <input type='button' value='Fetch all records' id='but_fetchall'>
-     
+     <select id='fetchallByPid' name='pid'>
+      <option value="0">Select</option>
+      <option value="1">ABC</option>
+      <option value="2">DFGH</option>
+      <option value="3">FFFFF</option>
+   </select>
+     <select id='select2' name='pid'><option value='0'>select2</option></select>
+
      <table border='1' id='userTable' style='border-collapse: collapse;'>
        <thead>
         <tr>
@@ -27,12 +30,14 @@
        <tbody></tbody>
      </table>
 
-     <select id='select2' name='pid'><option value='0'>select2</option></select>
+
+     
 
 
-
-
-
+     <br/>
+<hr><h1>Employee show under Department Dropdown Select</h1>
+<input type="text" id="box1" value="">
+<input type="text" id="box2" value="">
 
      <!-- Department Dropdown -->
    Department : <select id='sel_depart' name='sel_depart'>
@@ -50,6 +55,72 @@
  Employee : <select id='sel_emp' name='sel_emp'>
    <option value='0'>-- Select Employee --</option>
  </select>
+ 
+
+
+ <hr><h1>Only Javascript onkeyup</h1>
+
+
+<h2>Show by Click function Variable Using let</h2>
+
+Value 1: <input type="text" name="dd" id="a"><br>
+Value 2: <input type="text" name="gg" id="b"><br>
+
+
+<br>
+Discount % : <input type="text" name="gg" id="dis"><br>
+
+
+<input type="submit" onclick="cal()" value="Cal"><br>
+
+<b id="dshow"></b><br>
+<b id="ss"></b> <br>
+<script>
+
+    //Clicking function
+    function cal(){
+    var x = document.getElementById('a').value;
+    var y = document.getElementById('b').value;
+    var z= x+y;
+    document.getElementById('ss').innerHTML= z;
+    
+    var ds = document.getElementById('dis').value;
+    
+    var discount= z*ds/100;
+    document.getElementById('dshow').innerHTML= discount;
+    
+    }
+    
+    </script>
+
+
+<hr>
+<h2>Auto Show by Keyup function Variable Using let</h2>
+
+
+
+<script>
+    function mult(value){
+    
+        var w, s;
+        w= 2*value;
+        s= 3*value;
+    
+        document.getElementById('out2').value= w;
+        document.getElementById('out3').value= s;
+    }
+    
+    </script>
+
+Value 1: <input type="text" name="" onkeyup="mult(this.value)"><br>
+
+Out 2 x value1: <input type="text" name="" id="out2"><br>
+Out 3 x value1: <input type="text" name="" id="out3"><br>
+
+
+<hr><br><br><br><br><br><br><br><br>
+
+
 
      <!-- Script -->
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> 
@@ -58,6 +129,13 @@
 
      <script type='text/javascript'>
      $(document).ready(function(){
+
+      $("input").keydown(function(){
+    $("input").css("background-color", "yellow");
+  });
+  $("input").keyup(function(){
+    $("input").css("background-color", "pink");
+  });
 
        // Fetch all records
        $('#but_fetchall').click(function(){
@@ -114,6 +192,8 @@ $.ajax({
           var option = "<option value='"+id+"'>"+name+"</option>";
 
           $("#sel_emp").append(option); 
+          $("#box1").val(id);
+          $("#box2").val(name); 
        }
     }
 
@@ -132,6 +212,7 @@ $.ajax({
 
 
      function fetchRecordsByPid(pid){
+      $('#select2').find('option').not(':first').remove();
        $.ajax({
          url: 'getUserParent/'+pid,
          type: 'get',
